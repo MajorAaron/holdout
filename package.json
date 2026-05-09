@@ -1,0 +1,7 @@
+{
+  "name": "holdout",
+  "version": "1.0.0",
+  "description": "Holdout — the bird list of what hasn't shown up yet",
+  "private": true,
+  "dependencies": {}
+}

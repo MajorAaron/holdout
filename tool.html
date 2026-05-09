@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holdout — AI Post-Mortem for Your Nemesis Bird</title>
+<meta name="description" content="Tell Holdout about the bird that's been eluding you. The AI essayist returns a post-mortem that turns your near-misses into a story worth retelling.">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="stylesheet" href="styles.css">
+<script src="https://us.i.posthog.com/static/array.js" async></script>
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]);t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_QLq1IyOJF3FIKXvF462tepbZqLj4hHUl5j3OkXE1ReT', {api_host:'https://us.i.posthog.com'});
+</script>
+</head>
+<body>
+
+<header class="topnav">
+  <a href="/" class="brand">
+    <img src="logo.png" alt="" width="28" height="28" onerror="this.style.display='none'">
+    <span>Holdout</span>
+  </a>
+  <nav>
+    <a href="/">About</a>
+    <a href="#waitlist" class="cta">Join the waitlist</a>
+  </nav>
+</header>
+
+<main class="tool">
+  <section class="hero">
+    <p class="kicker">AI Post-Mortem · Free</p>
+    <h1>The bird that got away.<br><em>Again.</em></h1>
+    <p class="lede">
+      Tell Holdout about the species that's been eluding you. The AI essayist will read your saga
+      and return a 200-word post-mortem — part field guide, part confessional — plus three concrete
+      ideas for your next attempt.
+    </p>
+  </section>
+
+  <section class="form-card">
+    <form id="postmortem-form">
+      <label class="field">
+        <span class="label">Your nemesis species</span>
+        <input type="text" id="species" name="species"
+          placeholder="e.g., Connecticut Warbler, Black Rail, Mangrove Cuckoo" required>
+        <span class="hint">Common name is fine. Latin name welcome if you're feeling ceremonial.</span>
+      </label>
+
+      <label class="field">
+        <span class="label">Where you've been chasing it</span>
+        <input type="text" id="region" name="region"
+          placeholder="e.g., southern Florida, Boulder County, NY/NJ marshes" required>
+      </label>
+
+      <label class="field">
+        <span class="label">Your saga — the near-misses</span>
+        <textarea id="saga" name="saga" rows="6" required
+          placeholder="e.g., Dipped at Corkscrew Swamp three years running. Heard one once at sunrise, never seen. Drove from Atlanta in 2024 — bird had moved on the day before I arrived."></textarea>
+        <span class="hint">Three sentences is plenty. The more specific, the better the essay.</span>
+      </label>
+
+      <button type="submit" class="primary" id="submit-btn">
+        Write the post-mortem →
+      </button>
+    </form>
+
+    <div id="loading" class="loading hidden">
+      <div class="spinner"></div>
+      <p>Reading your saga, consulting the species, drafting the essay…</p>
+    </div>
+
+    <div id="error" class="error hidden"></div>
+
+    <div id="result" class="result hidden">
+      <article id="essay-card" class="essay-card">
+        <header>
+          <p class="card-kicker">Holdout · Post-Mortem</p>
+          <h2 id="result-species"></h2>
+          <p class="card-region" id="result-region"></p>
+        </header>
+        <div id="result-essay" class="essay-body"></div>
+        <section class="next-attempts">
+          <h3>Three ideas for your next attempt</h3>
+          <ol id="result-suggestions"></ol>
+        </section>
+        <footer>
+          <p class="watermark">holdout.majorsolutions.studio</p>
+        </footer>
+      </article>
+
+      <div class="actions">
+        <button type="button" id="copy-btn" class="secondary">Copy to clipboard</button>
+        <button type="button" id="new-btn" class="ghost">Start a new one</button>
+      </div>
+
+      <section id="waitlist" class="waitlist">
+        <h3>Want alerts when your holdout shows up nearby?</h3>
+        <p>Holdout Pro pulls eBird sightings and emails you the moment your specific holdout is reported within the radius you choose. We'll let you know when it's ready.</p>
+        <form id="signup-form">
+          <input type="email" id="email" name="email" placeholder="you@yourbinoculars.com" required>
+          <button type="submit" class="primary">Join the waitlist</button>
+        </form>
+        <p id="signup-status" class="hint"></p>
+      </section>
+    </div>
+  </section>
+
+  <section class="recent">
+    <h2>Recent post-mortems</h2>
+    <p class="lede-sm">Sagas other birders have shared. Names redacted. Species, kept.</p>
+    <ul id="recent-list" class="recent-list"><li class="loading-sm">Loading…</li></ul>
+  </section>
+
+  <section class="meta">
+    <details>
+      <summary>What makes this different from eBird's alerts?</summary>
+      <p>eBird alerts are a firehose — every rare bird in your region. Holdout is the opposite: a quiet
+      list of just <em>your</em> nemeses, written in the language of confession. The AI essay treats
+      missing the bird as a story, not a data gap.</p>
+    </details>
+    <details>
+      <summary>Is my saga private?</summary>
+      <p>Your essay is private to you. Recent post-mortems above show only the species, never your text
+      or location. We'll never share your saga without explicit consent.</p>
+    </details>
+    <details>
+      <summary>How is the essay generated?</summary>
+      <p>Gemini 2.0 Flash, with a prompt tuned to write in a quiet, observational register. We feed it
+      your saga and the species' known behavior; it returns prose that's part field guide, part
+      journal entry.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Holdout · part of <a href="https://majorsolutions.studio">Major Solutions Studio</a> · 2026</p>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>
