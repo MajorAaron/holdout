@@ -10,8 +10,36 @@
 <meta property="og:url" content="https://holdout.majorsolutions.studio">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://holdout.majorsolutions.studio/logo.png">
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="stylesheet" href="landing.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Holdout",
+  "url": "https://holdout.majorsolutions.studio",
+  "description": "A quiet, dignified web app for serious birders. Log the species that have eluded you, get an AI-written post-mortem of every near-miss, and a calm alert when your holdout is finally reported nearby.",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Web",
+  "offers": [
+    {"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},
+    {"@type":"Offer","name":"Pro","price":"4.99","priceCurrency":"USD"},
+    {"@type":"Offer","name":"Lifer","price":"129","priceCurrency":"USD"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Is this just a wrapper around eBird?","acceptedAnswer":{"@type":"Answer","text":"No. eBird's alert system is powerful but undifferentiated — every rare bird, every report. Holdout is the opposite: a single email when your nemesis is reported, in the radius you set, framed by your story. The free tool doesn't use eBird at all — it's purely a written essay generator."}},
+    {"@type":"Question","name":"Will my saga be used to train an AI model?","acceptedAnswer":{"@type":"Answer","text":"No. Your saga is sent to Gemini for the essay generation only and is not stored verbatim. We keep the species name and a hash of the saga (so we can de-duplicate the Recent feed) — never the full text."}},
+    {"@type":"Question","name":"What if my nemesis is a common bird?","acceptedAnswer":{"@type":"Answer","text":"Some of the best holdouts are. The whole point is that the bird is yours, not the world's. Holdout doesn't care if it's a Mangrove Cuckoo or an American Robin — the essay engages the saga, not the rarity."}}
+  ]
+}
+</script>
 <script src="https://us.i.posthog.com/static/array.js" async></script>
 <script>
   !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]);t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
